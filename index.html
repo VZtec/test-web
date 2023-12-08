@@ -13,6 +13,11 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <svg id="background" width="100%" height="100%"></svg>
     <div id="rnbo-root">
+        <!-- File upload button -->
+        <div>
+            <input type="file" id="fileInput">
+            <button onclick="uploadFile()">Upload</button>
+        </div>
 		<div>
 			<h1 id="patcher-title">Unnamed patcher</h1>
 		</div>
@@ -28,11 +33,6 @@
                     <select id="inport-select"></select>
                     <input id="inport-text" type="text"></input>
                     <input id="inport-submit" className="smallButton" type="submit" value="Send"/>
-                </div>
-                <!-- File upload button -->
-                <div>
-                    <input type="file" id="fileInput">
-                    <button onclick="uploadFile()">Upload</button>
                 </div>
             </form>
         </div>
