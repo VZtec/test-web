@@ -99,17 +99,39 @@ async function setup() {
 }
 
 
-function uploadFile() {
+function handleFileUpload() {
     let fileInput = document.getElementById('fileInput');
     let file = fileInput.files[0];
 
     if (file) {
-        // Process the selected file here (e.g., send it to the server, perform actions, etc.)
-        console.log('File selected:', file.name);
+        // Create a FileReader to read the uploaded file
+        let reader = new FileReader();
+        
+        reader.onload = function(event) {
+            // Update the externalDataRefs object with the uploaded file's data
+            let newData = {
+                "id": "drummer",
+                "file": event.target.result, // Use the uploaded file's data here
+                "type": "Float32Buffer",
+                "tag": "buffer~"
+            };
+
+            // Replace the existing reference with the uploaded file's data
+            let desc = { ...yourExistingDescObject }; // Your existing 'desc' object
+            desc.externalDataRefs[0] = newData; // Assuming there's only one reference
+
+            // Now 'desc' has the updated reference to the uploaded file
+            // Use 'desc' in your application logic as needed
+            console.log('Uploaded file:', newData);
+        };
+
+        // Read the uploaded file as data URL
+        reader.readAsDataURL(file);
     } else {
         console.log('No file selected');
     }
 }
+
 
 
 function loadRNBOScript(version) {
