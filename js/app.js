@@ -106,23 +106,26 @@ function handleFileUpload() {
     if (file) {
         // Create a FileReader to read the uploaded file
         let reader = new FileReader();
-        
+
         reader.onload = function(event) {
-            // Update the externalDataRefs object with the uploaded file's data
-            let newData = {
-                "id": "drummer",
-                "file": event.target.result, // Use the uploaded file's data here
-                "type": "Float32Buffer",
-                "tag": "buffer~"
+            // Replace the file reference with the uploaded file's data
+            let newFileData = event.target.result;
+
+            // Update the dependencies array with the new file data
+            let updatedDependencies = {
+                "dependencies": [
+                    {
+                        "id": "drummer",
+                        "file": newFileData, // Replace with the uploaded file's data
+                        "type": "Float32Buffer",
+                        "tag": "buffer~"
+                    }
+                ]
             };
 
-            // Replace the existing reference with the uploaded file's data
-            let desc = { ...yourExistingDescObject }; // Your existing 'desc' object
-            desc.externalDataRefs[0] = newData; // Assuming there's only one reference
-
-            // Now 'desc' has the updated reference to the uploaded file
-            // Use 'desc' in your application logic as needed
-            console.log('Uploaded file:', newData);
+            // Now 'updatedDependencies' has the updated reference to the uploaded file
+            // Use 'updatedDependencies' in your application logic as needed
+            console.log('Uploaded file:', updatedDependencies.dependencies[0]);
         };
 
         // Read the uploaded file as data URL
@@ -131,6 +134,7 @@ function handleFileUpload() {
         console.log('No file selected');
     }
 }
+
 
 
 
