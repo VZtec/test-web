@@ -98,6 +98,20 @@ async function setup() {
         guardrails();
 }
 
+
+function uploadFile() {
+    let fileInput = document.getElementById('fileInput');
+    let file = fileInput.files[0];
+
+    if (file) {
+        // Process the selected file here (e.g., send it to the server, perform actions, etc.)
+        console.log('File selected:', file.name);
+    } else {
+        console.log('No file selected');
+    }
+}
+
+
 function loadRNBOScript(version) {
     return new Promise((resolve, reject) => {
         if (/^\d+\.\d+\.\d+-dev$/.test(version)) {
