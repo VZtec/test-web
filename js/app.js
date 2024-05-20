@@ -98,46 +98,6 @@ async function setup() {
         guardrails();
 }
 
-
-function handleFileUpload() {
-    let fileInput = document.getElementById('fileInput');
-    let file = fileInput.files[0];
-
-    if (file) {
-        // Create a FileReader to read the uploaded file
-        let reader = new FileReader();
-
-        reader.onload = function(event) {
-            // Replace the file reference with the uploaded file's data
-            let newFileData = event.target.result;
-
-            // Update the dependencies array with the new file data
-            let updatedDependencies = {
-                "dependencies": [
-                    {
-                        "id": "drummer",
-                        "file": newFileData, // Replace with the uploaded file's data
-                        "type": "Float32Buffer",
-                        "tag": "buffer~"
-                    }
-                ]
-            };
-
-            // Now 'updatedDependencies' has the updated reference to the uploaded file
-            // Use 'updatedDependencies' in your application logic as needed
-            console.log('Uploaded file:', updatedDependencies.dependencies[0]);
-        };
-
-        // Read the uploaded file as data URL
-        reader.readAsDataURL(file);
-    } else {
-        console.log('No file selected');
-    }
-}
-
-
-
-
 function loadRNBOScript(version) {
     return new Promise((resolve, reject) => {
         if (/^\d+\.\d+\.\d+-dev$/.test(version)) {
