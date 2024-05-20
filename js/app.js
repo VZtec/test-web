@@ -103,7 +103,8 @@ async function setup() {
 
 
     // Connect to WebSocket server to receive UDP messages from Pd
-    const ws = new WebSocket('ws://localhost:8080');
+    //const ws = new WebSocket('ws://localhost:8080');
+    const ws = new WebSocket('ws://192.168.1.105:8080');
 
     ws.onopen = () => {
         console.log('WebSocket connection established');
