@@ -96,6 +96,65 @@ async function setup() {
     // Skip if you're not using guardrails.js
     if (typeof guardrails === "function")
         guardrails();
+
+
+
+
+
+
+    // Connect to WebSocket server to receive UDP messages from Pd
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onopen = () => {
+        console.log('WebSocket connection established');
+    };
+
+    ws.onmessage = (event) => {
+        const message = event.data;
+        console.log(`Received message: ${message}`);
+
+        // Assuming the message format is "noteTrigger,noteVal,velocity,duration"
+        const [noteTrigger, noteVal, velocity, duration] = message.split(',').map(Number);
+
+        // Update the RNBO device parameters
+        device.parameters.forEach(param => {
+            switch (param.name) {
+                case 'noteTrigger':
+                    param.value = noteTrigger;
+                    break;
+                case 'noteVal':
+                    param.value = noteVal;
+                    break;
+                case 'velocity':
+                    param.value = velocity;
+                    break;
+                case 'duration':
+                    param.value = duration;
+                    break;
+            }
+        });
+    };
+
+    ws.onclose = () => {
+        console.log('WebSocket connection closed');
+    };
+
+    ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 function loadRNBOScript(version) {
